@@ -11,8 +11,12 @@ namespace XUnitTestProject1
         [Fact]
         public void Test1()
         {
-            var mockobj = new Mock<IPromotioncal>();
-
+            var Products = new DTOProduct("A") { Price = 20 };
+            List<DTOProduct> listp = new List<DTOProduct>();
+            listp.Add(Products);
+            var mock = new Mock<IPromotionService>();
+            var result = mock.Setup(x => x.GetTotalPriceService(listp));
+            Assert.NotNull(result);
         }
     }
 }
