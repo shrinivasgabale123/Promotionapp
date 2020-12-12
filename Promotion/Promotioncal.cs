@@ -6,6 +6,11 @@ namespace Promotion
 {
     public class Promotioncal : IPromotioncal
     {
+        public Promotioncal()
+        {
+            //here we can take the DB object but here its not needed
+        }
+
         public int GetTotalPrice(List<DTOProduct> products)
         {
             int counterofA = 0;

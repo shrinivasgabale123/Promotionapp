@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 
 namespace Promotion
@@ -7,6 +8,12 @@ namespace Promotion
     {
         static void Main(string[] args)
         {
+            var serviceProvider = new ServiceCollection()
+            .AddSingleton<IPromotionService, PromotionService>()
+            .AddSingleton<IPromotioncal, Promotioncal>()
+            .BuildServiceProvider();
+
+
             List<DTOProduct> products = new List<DTOProduct>();
             Console.WriteLine("Enter the total number of order you want to  buy ?");
             int a = Convert.ToInt32(Console.ReadLine());
@@ -17,8 +24,14 @@ namespace Promotion
                 DTOProduct p = new DTOProduct(type);
                 products.Add(p);
             }
-            Promotioncal _promotion = new Promotioncal();
-            int totalPrice = _promotion.GetTotalPrice(products);
+
+
+            var promotionService = serviceProvider.GetService<IPromotionService>();
+            int totalPrice = promotionService.GetTotalPriceService(products);
+
+
+            //Promotioncal _promotion = new Promotioncal();
+            //int totalPrice = _promotion.GetTotalPrice(products);
             Console.WriteLine("======================================");
             Console.WriteLine("Total of your order is : " + totalPrice);
             Console.WriteLine("======================================");
